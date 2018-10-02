@@ -12,8 +12,11 @@ from .transformers import (
     start_date,
     user_partitions,
     visibility,
-    load_override_data,
+    load_override_data
 )
+from openedx.features.content_type_gating.block_transformers import ContentTypeGateTransformer
+from openedx.features.course_duration_limits.config import CONTENT_TYPE_GATING_FLAG
+
 from .usage_info import CourseUsageInfo
 
 INDIVIDUAL_STUDENT_OVERRIDE_PROVIDER = (
@@ -39,12 +42,17 @@ def get_course_block_access_transformers(user):
             which the block structure is to be transformed.
 
     """
+    # TODO: is order of transformers important?
     course_block_access_transformers = [
         library_content.ContentLibraryTransformer(),
         start_date.StartDateTransformer(),
         user_partitions.UserPartitionTransformer(),
         visibility.VisibilityTransformer(),
     ]
+
+    if CONTENT_TYPE_GATING_FLAG.is_enabled():
+        course_block_access_transformers.append(ContentTypeGateTransformer())
+
     if has_individual_student_override_provider():
         course_block_access_transformers += [load_override_data.OverrideDataTransformer(user)]
 

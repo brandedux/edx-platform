@@ -332,6 +332,7 @@ $(document).ready(function() {
 
             $tableWrapper.attr('data-manual-grading', isManualGrading);
             $tableWrapper.show();
+            $modal.find('#modal-table-empty-message').hide();
             $saveGradeOverrideButton.show().prop('disabled', true);
             modalDataTable.$('tr').each(function(){
                 $(this).attr('data-block-id', blockID);
@@ -542,8 +543,10 @@ $(document).ready(function() {
             }
 
             for (var i = 0; i < adjustedGradesData[username].errors.length; i++) {
-                $errorMessage = edx.HtmlUtils.joinHtml('Error for user ', username, ': ', adjustedGradesData[username].errors[i], '<br>').toString();
+                $separator = $('<br />');
+                $errorMessage = edx.HtmlUtils.joinHtml('Error for user ', username, ': ', adjustedGradesData[username].errors[i]).toString();
                 $messageField.append($errorMessage);
+                $messageField.append($separator);
             }
 
             if (adjustedGradesData[username].errors.length === 0) {

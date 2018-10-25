@@ -26,6 +26,8 @@ LOG = logging.getLogger(__name__)
 # Studio generates partition IDs starting at 100. There is already a manually generated
 # partition for Enrollment Track that uses ID 50, so we'll use 51.
 CONTENT_GATING_PARTITION_ID = 51
+COURSE_MODE_AUDIT = u'audit'
+
 
 def create_content_gating_partition(course):
     """
@@ -135,7 +137,7 @@ class ContentTypeGatingPartitionScheme(object):
                 )
                 return cls.FULL_ACCESS
 
-            if mode_slug == course_mode.AUDIT:
+            if mode_slug == COURSE_MODE_AUDIT:
                 # TODO: does the below comment mean there is more work to be done here
                 # Check the user email exceptions here:
                 return cls.LIMITED_ACCESS

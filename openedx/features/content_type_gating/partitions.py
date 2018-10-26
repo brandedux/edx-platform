@@ -1,14 +1,15 @@
-import logging
-import textwrap
+"""
+Define the ContentTypeGatingPartition and ContentTypeGatingPartitionScheme.
 
-import crum
-from django.apps import apps
+These are used together to allow course content to be blocked for a subset
+of audit learners.
+"""
+
+import logging
+
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-import waffle
 
-from web_fragments.fragment import Fragment
-from lms.djangoapps.commerce.utils import EcommerceService
 from lms.djangoapps.courseware.masquerade import (
     get_course_masquerade,
     is_masquerading_as_specific_student,
@@ -67,6 +68,7 @@ def create_content_gating_partition(course):
 
 class ContentTypeGatingPartition(UserPartition):
     pass
+
 
 class ContentTypeGatingPartitionScheme(object):
     """

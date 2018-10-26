@@ -104,9 +104,6 @@ class ContentTypeGatingPartitionScheme(object):
         # For now, treat everyone as a Full-access user, until we have the rest of the
         # feature gating logic in place.
 
-        CourseMode = apps.get_model('course_modes.CourseMode')
-        modes = CourseMode.modes_for_course_dict(course_key)
-
         if not CONTENT_TYPE_GATING_FLAG.is_enabled():
             return cls.FULL_ACCESS
 

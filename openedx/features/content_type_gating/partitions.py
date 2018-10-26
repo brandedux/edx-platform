@@ -15,6 +15,10 @@ from lms.djangoapps.courseware.masquerade import (
     get_masquerading_user_group,
 )
 from xmodule.partitions.partitions import Group, UserPartition, UserPartitionError
+from openedx.features.course_duration_limits.config import (
+    CONTENT_TYPE_GATING_FLAG,
+    CONTENT_TYPE_GATING_STUDIO_UI_FLAG,
+)
 
 
 LOG = logging.getLogger(__name__)
@@ -28,6 +32,9 @@ def create_content_gating_partition(course):
     """
     Create and return the Content Gating user partition.
     """
+
+    if not (CONTENT_TYPE_GATING_FLAG.is_enabled() or CONTENT_TYPE_GATING_STUDIO_UI_FLAG.is_enabled()):
+        return None
 
     try:
         content_gate_scheme = UserPartition.get_scheme("content_type_gate")

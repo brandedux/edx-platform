@@ -9,6 +9,7 @@ import logging
 
 from django.utils.translation import ugettext_lazy as _
 
+from django.apps import apps
 from lms.djangoapps.courseware.masquerade import (
     get_course_masquerade,
     is_masquerading_as_specific_student,

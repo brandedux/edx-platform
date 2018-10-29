@@ -19,6 +19,7 @@ from django.urls import reverse
 from django.http import Http404, HttpResponse, HttpResponseForbidden
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
+from edx_django_utils.cache import RequestCache
 from edx_django_utils.monitoring import set_custom_metrics_for_course_key, set_monitoring_transaction_name
 from edx_proctoring.services import ProctoringService
 from opaque_keys import InvalidKeyError
@@ -43,7 +44,6 @@ from courseware.masquerade import (
 )
 from courseware.model_data import DjangoKeyValueStore, FieldDataCache
 from edxmako.shortcuts import render_to_string
-from edx_django_utils.cache import RequestCache
 from eventtracking import tracker
 from lms.djangoapps.courseware.field_overrides import OverrideFieldData
 from lms.djangoapps.grades.signals.signals import SCORE_PUBLISHED

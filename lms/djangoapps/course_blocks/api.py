@@ -6,6 +6,8 @@ from django.conf import settings
 
 from openedx.core.djangoapps.content.block_structure.api import get_block_structure_manager
 from openedx.core.djangoapps.content.block_structure.transformers import BlockStructureTransformers
+from openedx.features.content_type_gating.block_transformers import ContentTypeGateTransformer
+from openedx.features.course_duration_limits.config import CONTENT_TYPE_GATING_FLAG
 
 from .transformers import (
     library_content,
@@ -14,8 +16,6 @@ from .transformers import (
     visibility,
     load_override_data
 )
-from openedx.features.content_type_gating.block_transformers import ContentTypeGateTransformer
-from openedx.features.course_duration_limits.config import CONTENT_TYPE_GATING_FLAG
 
 from .usage_info import CourseUsageInfo
 

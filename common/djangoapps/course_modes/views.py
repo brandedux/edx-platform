@@ -6,6 +6,7 @@ import decimal
 import json
 import urllib
 
+import crum
 import waffle
 from babel.dates import format_datetime
 from django.contrib.auth.decorators import login_required
@@ -129,6 +130,8 @@ class ChooseModeView(View):
             params = urllib.urlencode({'course_closed': enrollment_end_date})
             return redirect('{0}?{1}'.format(reverse('dashboard'), params))
 
+        content_gating_enabled = waffle.flag_is_active(crum.get_current_request(), 'content_type_gating.debug')
+
         # When a credit mode is available, students will be given the option
         # to upgrade from a verified mode to a credit mode at the end of the course.
         # This allows students who have completed photo verification to be eligible
@@ -185,6 +188,7 @@ class ChooseModeView(View):
             "error": error,
             "responsive": True,
             "nav_hidden": True,
+            "content_gating_enabled": content_gating_enabled,
         }
         context.update(
             get_experiment_user_metadata_context(

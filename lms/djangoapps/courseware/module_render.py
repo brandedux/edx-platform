@@ -7,6 +7,7 @@ import json
 import logging
 from collections import OrderedDict
 from functools import partial
+import textwrap
 
 from completion.models import BlockCompletion
 from completion import waffle as completion_waffle

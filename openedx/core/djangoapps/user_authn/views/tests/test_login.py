@@ -295,7 +295,7 @@ class LoginTest(CacheIsolationTestCase):
         response, _audit_log = self._login_response('test@edx.org', 'wrong_password')
         self._assert_response(response, success=False, value='Too many failed login attempts')
 
-    @patch.dict("django.conf.settings.FEATURES", {"ENABLE_SET_JWT_COOKIES": True})
+    @patch.dict("django.conf.settings.FEATURES", {"ENABLE_LOGIN_SET_JWT_COOKIES": True})
     def test_login_refresh(self):
         def _assert_jwt_cookie_present(response):
             self.assertEqual(response.status_code, 200)

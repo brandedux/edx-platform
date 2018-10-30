@@ -140,7 +140,8 @@ def set_logged_in_cookies(request, response, user):
 
         _set_deprecated_logged_in_cookie(response, cookie_settings)
         set_deprecated_user_info_cookie(response, request, user, cookie_settings)
-        _create_and_set_jwt_cookies(response, request, cookie_settings, user=user)
+        if settings.FEATURES.get('ENABLE_LOGIN_SET_JWT_COOKIES', True):
+            _create_and_set_jwt_cookies(response, request, cookie_settings, user=user)
         CREATE_LOGON_COOKIE.send(sender=None, user=user, response=response)
 
     return response
@@ -246,9 +247,6 @@ def _get_user_info_cookie_data(request, user):
 
 def _create_and_set_jwt_cookies(response, request, cookie_settings, user=None, refresh_token=None):
     """ Sets a cookie containing a JWT on the response. """
-    if not settings.FEATURES.get('ENABLE_SET_JWT_COOKIES', True):
-        return
-
     # For security reasons, the JWT that is embedded inside the cookie expires
     # much sooner than the cookie itself, per the following setting.
     expires_in = settings.JWT_AUTH['JWT_IN_COOKIE_EXPIRATION']

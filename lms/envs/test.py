@@ -52,7 +52,7 @@ THIS_UUID = uuid4().hex[:5]
 
 # For most tests, setting Jwt cookies during login is not necessary,
 # and raises errors when an oauth client has not been configured.
-FEATURES['ENABLE_SET_JWT_COOKIES'] = False
+FEATURES['ENABLE_LOGIN_SET_JWT_COOKIES'] = False
 
 # can't test start dates with this True, but on the other hand,
 # can test everything else :)

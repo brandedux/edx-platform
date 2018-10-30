@@ -105,7 +105,7 @@ class CookieTests(TestCase):
         self._assert_consistent_expires(response)
         self._assert_recreate_jwt_from_cookies(response, can_recreate=False)
 
-    @patch.dict("django.conf.settings.FEATURES", {"ENABLE_SET_JWT_COOKIES": True})
+    @patch.dict("django.conf.settings.FEATURES", {"ENABLE_LOGIN_SET_JWT_COOKIES": True})
     def test_set_logged_in_jwt_cookies(self):
         setup_login_oauth_client()
         response = cookies_api.set_logged_in_cookies(self.request, HttpResponse(), self.user)
@@ -122,7 +122,7 @@ class CookieTests(TestCase):
         self._copy_cookies_to_request(response, self.request)
         self.assertFalse(cookies_api.is_logged_in_cookie_set(self.request))
 
-    @patch.dict("django.conf.settings.FEATURES", {"ENABLE_SET_JWT_COOKIES": True})
+    @patch.dict("django.conf.settings.FEATURES", {"ENABLE_LOGIN_SET_JWT_COOKIES": True})
     def test_refresh_jwt_cookies(self):
         def _get_refresh_token_value(response):
             return response.cookies[cookies_api.jwt_cookies.jwt_refresh_cookie_name()].value

@@ -194,7 +194,7 @@ CMS_SEGMENT_KEY = None
 
 # For most tests, setting Jwt cookies during login is not necessary,
 # and raises errors when an oauth client has not been configured.
-FEATURES['ENABLE_SET_JWT_COOKIES'] = False
+FEATURES['ENABLE_LOGIN_SET_JWT_COOKIES'] = False
 
 FEATURES['ENABLE_SERVICE_STATUS'] = True
 
